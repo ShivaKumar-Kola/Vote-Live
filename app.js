@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   session({
-    secret: "123456789-mysupersecretkey-1234567890",
+    secret: "super-secretkeyinformation",
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, //oneday-24hours
     },
