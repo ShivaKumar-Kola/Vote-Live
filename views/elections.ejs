@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>Vote-live</title>
+    <meta name="csrf-token" content="<%= csrf %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+      
+      function deleteElection(id) {
+        var token = document
+          .querySelector('meta[name="csrf-token"]')
+          .getAttribute("content");
+        fetch(`/election/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            _csrf: token
+          }),
+        }).then((res) => {
+          if (res.ok) {
+            window.location.reload();
+          }
+        })
+          .catch((err) => console.log(err));
+      }
+    </script>
+    <style>
+      td {
+        text-align: center;
+      }
+    </style>
+  </head>
+  
+  <body>
+  
+    <% if (elections.length===0) { %>
+      <h1 style="text-align:center;color:red;font-size:large;font-weight:bold;margin-top:2%">No Elections created yet
+      </h1>
+      <% } %>
+  
+        <table style="font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        margin-left: 25%;
+        margin-top: 4%;
+        border-color: black;">
+          <% for (var i=0; i<elections.length; i++) { %>
+            <tr style=" border: 2px solid black;">
+              <td style=" border: 1px solid black;">
+                <%= i+1 %>
+              </td>
+              <td style=" border: 1px solid black;">
+                <%= elections[i].name %>
+              </td>
+              <td style=" border: 1px solid black;color: blue;">
+                <a href="/election/<%= elections[i].id %>"><u>View</u></a>
+              </td>
+              <td style=" border: 1px solid black; font-size:50px">
+                <button onclick="deleteElection('<%= elections[i].id %>')"><svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <% } %>
+        </table>
+  
+  </body>
+  

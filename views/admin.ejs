@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Vote-Live</title>
+</head>
+<body style="background-image: linear-gradient(white);">
+
+    <%- include ('Header', {username: username,ad_id:ad_id}) %>
+      </br>
+      <p class="text-4xl" style="text-align:center">List of Elections</p>
+      <div style="text-align:center;margin-top:3%">
+  
+  
+        <a href="new.ejs"
+          class="bg-green-500 hover:bg-green-600 border-2 border-green-600 rounded-lg p-2 text-white">
+          <i class="fa fa-plus"></i> New Election
+        </a>
+      </div>
+  
+      
+      <div><%- include ('elections.ejs') %></div>
+  
+  </body>
+  
+  </html>
+</html>
